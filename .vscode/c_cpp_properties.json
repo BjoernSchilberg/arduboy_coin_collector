@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}",
+                "/opt/arduino-1.8.8/hardware/arduino/avr/cores/arduino",
+                "/opt/arduino-1.8.8/hardware/tools/avr/avr/include",
+                "/opt/arduino-1.8.8/hardware/arduino/avr/variants/leonardo/",
+                "/opt/arduino-1.8.8/hardware/arduino/avr/libraries/EEPROM/src",
+                "~/Arduino/libraries/Arduboy2/src"
+            ],
+            "forcedInclude": [
+            ],
+    		"browse": {
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

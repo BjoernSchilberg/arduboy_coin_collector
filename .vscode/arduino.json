@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "port": "/dev/ttyACM0",
+    "sketch": "coin_collector.ino",
+    "output": "build"
+}
