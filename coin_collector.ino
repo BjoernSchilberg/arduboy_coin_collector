@@ -8,12 +8,30 @@
 #include <Arduboy2.h>
 Arduboy2 arduboy;
 
-uint8_t foxx = 0;
-uint8_t foxy = 8;
+const unsigned char PROGMEM fox_image[] = {
+    0x00, 0x00, 0x00, 0x00, 0x76, 0xdf, 0x86, 0x04, 0x04, 0x24, 0x06, 0x27, 0x8c, 0xf8, 0x60, 0x00,
+    0x00, 0x00, 0x0c, 0x0c, 0xdc, 0xf6, 0x23, 0x43, 0x43, 0x23, 0xf3, 0xdf, 0x0d, 0x0c, 0x00, 0x00};
 
-const unsigned char PROGMEM fox[] = {
-        0x00, 0x00, 0x00, 0x00, 0x76, 0xdf, 0x86, 0x04, 0x04, 0x24, 0x06, 0x27, 0x8c, 0xf8, 0x60, 0x00,
-        0x00, 0x00, 0x0c, 0x0c, 0xdc, 0xf6, 0x23, 0x43, 0x43, 0x23, 0xf3, 0xdf, 0x0d, 0x0c, 0x00, 0x00};
+const unsigned char PROGMEM coin_image[] = {
+    0x18, 0x3c, 0x7e, 0xff, 0xff, 0x7e, 0x3c, 0x18};
+
+struct Fox
+{
+    uint8_t x;
+    uint8_t y;
+    const unsigned char *image;
+};
+
+Fox fox = {0, 8, fox_image};
+
+struct Coin
+{
+    uint8_t x;
+    uint8_t y;
+    const unsigned char *image;
+};
+
+Coin coin = {0, 0, coin_image};
 
 void setup()
 {
@@ -21,7 +39,6 @@ void setup()
     arduboy.begin();
 
     arduboy.display();
-
 }
 
 void loop()
@@ -34,27 +51,28 @@ void loop()
 
     arduboy.clear();
 
-    if (arduboy.pressed(LEFT_BUTTON) && foxx > 0)
+    if (arduboy.pressed(LEFT_BUTTON) && fox.x > 0)
     {
-        foxx--;
+        fox.x--;
     }
-    if (arduboy.pressed(RIGHT_BUTTON) && foxx + 16 < 128)
+    if (arduboy.pressed(RIGHT_BUTTON) && fox.x + 16 < 128)
     {
-        foxx++;
+        fox.x++;
     }
-    if (arduboy.pressed(UP_BUTTON) && foxy > 0)
+    if (arduboy.pressed(UP_BUTTON) && fox.y > 0)
     {
-        foxy--;
+        fox.y--;
     }
-    if (arduboy.pressed(DOWN_BUTTON) && foxy + 16 < 64)
+    if (arduboy.pressed(DOWN_BUTTON) && fox.y + 16 < 64)
     {
-        foxy++;
+        fox.y++;
     }
 
-    arduboy.println(foxx);
-    arduboy.println(foxy);
+    arduboy.println(fox.x);
+    arduboy.println(fox.y);
 
-    arduboy.drawBitmap(foxx, foxy, fox, 16, 16, WHITE);
+    arduboy.drawBitmap(fox.x, fox.y, fox.image, 16, 16, WHITE);
+    arduboy.drawBitmap(coin.x, coin.y, coin.image, 8, 8, WHITE);
 
     arduboy.display();
 }
