@@ -31,12 +31,31 @@ struct Coin
     const unsigned char *image;
 };
 
-Coin coin = {0, 0, coin_image};
+Coin coin = {};
+
+bool collision()
+{
+
+    Rect foxRect = Rect{fox.x, fox.y, 16, 16};
+    Rect coinRect = Rect{coin.x, coin.y, 8, 8};
+
+    if (arduboy.collide(foxRect, coinRect))
+    {
+        return true;
+    }
+
+    return false;
+}
 
 void setup()
 {
     // Clears the screen at sets the framerate to 60 fps
     arduboy.begin();
+
+    // Special technique to make sure that the seed is random to get a different sequence each time.
+    arduboy.initRandomSeed();
+
+    coin = {random(0,128), random(0,64), coin_image};
 
     arduboy.display();
 }
@@ -73,6 +92,11 @@ void loop()
 
     arduboy.drawBitmap(fox.x, fox.y, fox.image, 16, 16, WHITE);
     arduboy.drawBitmap(coin.x, coin.y, coin.image, 8, 8, WHITE);
+
+    if (collision())
+    {
+        arduboy.println("collision");
+    };
 
     arduboy.display();
 }
