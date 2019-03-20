@@ -60,6 +60,7 @@ void setup()
     coin = {(uint8_t)random(0,128), (uint8_t)random(0,64), coin_image};
 
     arduboy.display();
+    Serial.begin(9600);
 }
 
 void loop()
@@ -109,6 +110,9 @@ void loop()
     };
     arduboy.drawBitmap(fox.x, fox.y, fox.image, 16, 16, WHITE);
     arduboy.drawBitmap(coin.x, coin.y, coin.image, 8, 8, WHITE);
+
+    //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
+    Serial.println(score);
 
     arduboy.display();
 }
