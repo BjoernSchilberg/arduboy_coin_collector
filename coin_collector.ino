@@ -33,6 +33,8 @@ struct Coin
 
 Coin coin = {};
 
+uint8_t score = 0;
+
 bool collision()
 {
 
@@ -55,7 +57,7 @@ void setup()
     // Special technique to make sure that the seed is random to get a different sequence each time.
     arduboy.initRandomSeed();
 
-    coin = {random(0,128), random(0,64), coin_image};
+    coin = {(uint8_t)random(0,128), (uint8_t)random(0,64), coin_image};
 
     arduboy.display();
 }
@@ -87,16 +89,26 @@ void loop()
         fox.y++;
     }
 
-    arduboy.println(fox.x);
-    arduboy.println(fox.y);
-
-    arduboy.drawBitmap(fox.x, fox.y, fox.image, 16, 16, WHITE);
-    arduboy.drawBitmap(coin.x, coin.y, coin.image, 8, 8, WHITE);
+    //arduboy.println(fox.x);
+    //arduboy.println(fox.y);
+    //arduboy.println(score);
+    arduboy.print("Score:");
+    arduboy.print(score);
+    arduboy.setCursor(98, 45);
+    arduboy.print("X:");
+    arduboy.print(fox.x);
+    arduboy.setCursor(98, 55);
+    arduboy.print("Y:");
+    arduboy.print(fox.y);
 
     if (collision())
     {
-        arduboy.println("collision");
+        score += 1;
+        coin.x = (uint8_t)random(0, 128-8);
+        coin.y = (uint8_t)random(0, 64-8);
     };
+    arduboy.drawBitmap(fox.x, fox.y, fox.image, 16, 16, WHITE);
+    arduboy.drawBitmap(coin.x, coin.y, coin.image, 8, 8, WHITE);
 
     arduboy.display();
 }
