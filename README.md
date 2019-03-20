@@ -9,3 +9,9 @@
 
 - `Arduino: Verify` # Verify and build -> output is `build/`
 - `Arduino: Upload` # -> Upload to Arduboy
+
+## Debugging
+
+```shell
+screen /dev/ttyACM0
+```
